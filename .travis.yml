@@ -1,0 +1,35 @@
+language: php
+
+sudo: false
+
+php:
+    - "7.0"
+    - "7.1"
+    - "nightly"
+
+matrix:
+    allow_failures:
+        - php: nightly
+    fast_finish: true
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+services: postgresql
+
+before_install:
+    - psql -c 'CREATE DATABASE pomm_test' -U postgres -h 127.0.0.1 postgres
+    - psql -c 'CREATE TABLE config (name character varying(25) PRIMARY KEY, value character varying(25))' -U postgres -h 127.0.0.1 pomm_test
+
+    - php -S localhost:8080 -t test/web &> /dev/null &
+    - ln -fs parameters.yml.dist test/app/config/parameters.yml
+
+install:
+    - cd test/
+    - composer install
+    - rm -rf vendor/pomm-project/api-platform
+    - ln -s ../../../ vendor/pomm-project/api-platform
+
+script:
+    - ./bin/behat
