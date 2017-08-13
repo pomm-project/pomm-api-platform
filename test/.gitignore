@@ -1,0 +1,12 @@
+/app/config/parameters.yml
+/bin/*
+!bin/console
+/composer.phar
+/composer.lock
+/src/Resources/public/
+/var/*
+/vendor/
+/web/css/
+/web/images/
+/web/js/
+/web/bundles/

@@ -1,0 +1,5 @@
+# This file is auto-generated during the composer install
+parameters:
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+    database_dsn: pgsql://postgres:12345@127.0.0.1:5432/pomm_test

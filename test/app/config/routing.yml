@@ -1,0 +1,7 @@
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+
+api:
+    resource: '.'
+    type:     'api_platform'
+    prefix:   '/api'

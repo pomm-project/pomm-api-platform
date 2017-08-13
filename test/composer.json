@@ -1,0 +1,35 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/sanpii/pomm-api-platform.git"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "api-platform/core": "~2.0",
+        "symfony/symfony": "~3.0",
+        "symfony/assetic-bundle": "~2.7",
+        "symfony/monolog-bundle": "~3.0",
+        "pomm-project/pomm-bundle": "dev-master",
+        "pomm-project/api-platform": "dev-master"
+    },
+    "require-dev": {
+        "behatch/contexts": "~2.6",
+        "behat/mink-goutte-driver": "*"
+    },
+    "autoload": {
+        "psr-4": { "AppBundle\\": "src/" },
+        "classmap": [ "app/AppKernel.php" ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative"
+    }
+}
