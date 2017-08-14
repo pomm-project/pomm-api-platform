@@ -26,6 +26,7 @@ before_install:
     - ln -fs parameters.yml.dist test/app/config/parameters.yml
 
 install:
+    - composer install
     - cd test/
     - composer install
     - rm -rf vendor/pomm-project/api-platform
