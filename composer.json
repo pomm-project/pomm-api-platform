@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=7.0",
-        "api-platform/core": "*",
-        "pomm-project/pomm-bundle": ">=2.4"
+        "api-platform/core": "~2.0",
+        "pomm-project/pomm-bundle": "2.0.x-dev"
     },
     "autoload": {
         "psr-4": { "PommProject\\ApiPlatform\\": "src/" }
