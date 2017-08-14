@@ -1,14 +1,15 @@
 Feature: Pomm bridge for api platform
+    Background:
+        Given I add "accept" header equal to "application/json"
 
     Scenario: Index
         When I send a GET request to "/api"
         Then the JSON should be equal to:
         """
         {
-            "@context": "/api/contexts/Entrypoint",
-            "@id": "/api",
-            "@type": "Entrypoint",
-            "config": "/api/configs"
+            "resourceNameCollection": [
+                "AppBundle\\Entity\\Config"
+            ]
         }
         """
 
@@ -16,14 +17,7 @@ Feature: Pomm bridge for api platform
         When I send a GET request to "/api/configs"
         Then the JSON should be equal to:
         """
-        {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-            ],
-            "hydra:totalItems": 0
-        }
+        []
         """
 
     Scenario Outline: Create a resource
@@ -40,13 +34,8 @@ Feature: Pomm bridge for api platform
         And the JSON should be equal to:
         """
         {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-                "<name>",
-                "<value>"
-            ]
+            "name": "<name>",
+            "value": "<value>"
         }
         """
 
@@ -61,64 +50,48 @@ Feature: Pomm bridge for api platform
         When I send a GET request to "/api/configs"
         Then the JSON should be equal to:
         """
-        {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-                {
-                    "name": "test1",
-                    "value": "value1"
-                },
-                {
-                    "name": "test2",
-                    "value": "value2"
-                },
-                {
-                    "name": "test3",
-                    "value": "value3"
-                },
-                {
-                    "name": "test4",
-                    "value": "value4"
-                }
-            ],
-            "hydra:totalItems": 4
-        }
+        [
+            {
+                "name": "test1",
+                "value": "value1"
+            },
+            {
+                "name": "test2",
+                "value": "value2"
+            },
+            {
+                "name": "test3",
+                "value": "value3"
+            },
+            {
+                "name": "test4",
+                "value": "value4"
+            }
+        ]
         """
 
     Scenario: Retreive resources order by desc
         When I send a GET request to "/api/configs?order[value]=desc"
         Then the JSON should be equal to:
         """
-        {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-                {
-                    "name": "test4",
-                    "value": "value4"
-                },
-                {
-                    "name": "test3",
-                    "value": "value3"
-                },
-                {
-                    "name": "test2",
-                    "value": "value2"
-                },
-                {
-                    "name": "test1",
-                    "value": "value1"
-                }
-            ],
-            "hydra:totalItems": 4,
-            "hydra:view": {
-                "@id": "/api/configs?order%5Bvalue%5D=desc",
-                "@type": "hydra:PartialCollectionView"
+        [
+            {
+                "name": "test4",
+                "value": "value4"
+            },
+            {
+                "name": "test3",
+                "value": "value3"
+            },
+            {
+                "name": "test2",
+                "value": "value2"
+            },
+            {
+                "name": "test1",
+                "value": "value1"
             }
-        }
+        ]
         """
 
     Scenario: Modify a resource
@@ -134,13 +107,8 @@ Feature: Pomm bridge for api platform
         And the JSON should be equal to:
         """
         {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-                "test1",
-                "new_value"
-            ]
+            "name": "test1",
+            "value": "new_value"
         }
         """
 
@@ -149,13 +117,8 @@ Feature: Pomm bridge for api platform
         Then the JSON should be equal to:
         """
         {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-                "test1",
-                "new_value"
-            ]
+            "name": "test1",
+            "value": "new_value"
         }
         """
 
@@ -163,22 +126,12 @@ Feature: Pomm bridge for api platform
         When I send a GET request to "/api/configs?value=new_value"
         Then the JSON should be equal to:
         """
-        {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-                {
-                    "name": "test1",
-                    "value": "new_value"
-                }
-            ],
-            "hydra:totalItems": 1,
-            "hydra:view": {
-                "@id": "/api/configs?value=new_value",
-                "@type": "hydra:PartialCollectionView"
+        [
+            {
+                "name": "test1",
+                "value": "new_value"
             }
-        }
+        ]
         """
 
     Scenario Outline: Delete a resource
@@ -196,12 +149,5 @@ Feature: Pomm bridge for api platform
         When I send a GET request to "/api/configs"
         Then the JSON should be equal to:
         """
-        {
-            "@context": "/api/contexts/Config",
-            "@id": "/api/configs",
-            "@type": "hydra:Collection",
-            "hydra:member": [
-            ],
-            "hydra:totalItems": 0
-        }
+        []
         """
