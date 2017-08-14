@@ -2,7 +2,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/sanpii/pomm-api-platform.git"
+            "url": "https://github.com/sanpii/pomm-api-platform"
         }
     ],
     "require": {
