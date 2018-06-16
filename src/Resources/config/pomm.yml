@@ -18,6 +18,8 @@ services:
     arguments:
       - '@pomm'
       - '@request_stack'
+      - '@api_platform.metadata.resource.metadata_factory'
+      - '@api_platform.filter_locator'
       - '%api_platform.pomm.collection.pagination%'
       - '%api_platform.pomm.collection.order%'
     tags:
@@ -34,3 +36,10 @@ services:
     arguments: ['@pomm']
     tags:
       - { name: 'kernel.event_listener', event: 'kernel.view', method: 'onKernelView', priority: 32 }
+
+  api_platform.pomm.search_filter:
+    public: false
+    class: 'PommProject\ApiPlatform\Filter\SearchFilter'
+    arguments: ['@pomm']
+    tags:
+      - { name: 'api_platform.pomm.search_filter' }

@@ -67,3 +67,9 @@ api_platform:
         pagination:
             page_parameter_name: myPage
             items_per_page_parameter_name: myItemsPerPage
+
+services:
+    app.filter.search_filter:
+        parent:    'api_platform.pomm.search_filter'
+        arguments: [ { 'value': 'exact', 'value_partial': 'partial', 'value_start': 'start', 'value_end': 'end', 'value_word_start': 'word_start', 'value_ipartial': 'ipartial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'filter.search' } ]
