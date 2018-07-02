@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CollectionDataProvider implements CollectionDataProviderInterface
 {
+    const PAGE_PARAMETER_NAME_DEFAULT = 'page';
+
     private $pomm;
     private $requestStack;
     private $pagination;
@@ -52,7 +54,7 @@ class CollectionDataProvider implements CollectionDataProviderInterface
         $model = $session->getModel($modelName);
         $paginator = $model->paginateFindWhere(
             $this->getWhere($request, $model),
-            $this->pagination['items_per_page'],
+            $this->getItemsPerPage($request),
             $this->getCurrentPage($request),
             $this->getOrderSuffix($request)
         );
@@ -62,7 +64,18 @@ class CollectionDataProvider implements CollectionDataProviderInterface
 
     private function getCurrentPage(Request $request): int
     {
-        return $request->query->get($this->pagination['items_per_page_parameter_name'], 1);
+        return $request->query->get(
+            $this->pagination['page_parameter_name'] ?? static::PAGE_PARAMETER_NAME_DEFAULT,
+            1
+        );
+    }
+
+    private function getItemsPerPage(Request $request): int
+    {
+        return $request->query->get(
+            $this->pagination['items_per_page_parameter_name'],
+            $this->pagination['items_per_page']
+        );
     }
 
     private function getOrderSuffix(Request $request): string

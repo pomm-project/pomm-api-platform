@@ -94,6 +94,18 @@ Feature: Pomm bridge for api platform
         ]
         """
 
+    Scenario: Retreive resources using pagination
+        When I send a GET request to "/api/configs?order[value]=asc&myPage=2&myItemsPerPage=3"
+        Then the JSON should be equal to:
+        """
+        [
+            {
+                "name": "test4",
+                "value": "value4"
+            }
+        ]
+        """
+
     Scenario: Modify a resource
         Given I add "Content-Type" header equal to "application/ld+json"
         When I send a PUT request to "/api/configs/test1" with body:
