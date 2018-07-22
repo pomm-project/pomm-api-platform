@@ -43,6 +43,10 @@ class SearchFilter extends Filter implements FilterInterface
 
         foreach ($this->properties as $property => $strategy)
         {
+            if ($strategy === null) {
+                $strategy = self::STRATEGY_EXACT;
+            }
+
             $description[$property] = [
                 'property' => $property,
                 'strategy' => $strategy,
@@ -60,8 +64,13 @@ class SearchFilter extends Filter implements FilterInterface
 
     public function addClause(string $property, $value, string $resourceClass, Where $where): Where
     {
-        if (isset($this->properties[$property])) {
-            $where = $this->andWhereByStrategy($property, $value, $this->properties[$property], $where);
+        if (array_key_exists($property, $this->properties)) {
+            $strategy = $this->properties[$property];
+            if ($strategy === null) {
+                $strategy = self::STRATEGY_EXACT;
+            }
+
+            $where = $this->andWhereByStrategy($property, $value, $strategy, $where);
         }
 
         return $where;
