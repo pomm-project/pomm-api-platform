@@ -110,7 +110,8 @@ Feature: Pomm bridge for api platform
         [
             {
                 "name": "test4",
-                "value": "value4"
+                "value": "value4",
+                "status": 1
             }
         ]
         """
