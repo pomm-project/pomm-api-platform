@@ -63,3 +63,7 @@ pomm:
 
 api_platform:
     title: 'Pomm test'
+    collection:
+        pagination:
+            page_parameter_name: myPage
+            items_per_page_parameter_name: myItemsPerPage
