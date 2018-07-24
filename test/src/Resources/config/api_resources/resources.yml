@@ -1,2 +1,11 @@
 resources:
-    AppBundle\Entity\Config: ~
+    AppBundle\Entity\Config:
+        collectionOperations:
+            get:
+                filters: ['value']
+            post: ~
+    AppBundle\Entity\Filter:
+        collectionOperations:
+            get:
+                filters: ['filter.search']
+            post: ~

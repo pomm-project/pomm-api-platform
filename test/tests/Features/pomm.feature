@@ -8,7 +8,8 @@ Feature: Pomm bridge for api platform
         """
         {
             "resourceNameCollection": [
-                "AppBundle\\Entity\\Config"
+                "AppBundle\\Entity\\Config",
+                "AppBundle\\Entity\\Filter"
             ]
         }
         """
