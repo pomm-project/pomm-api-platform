@@ -5,7 +5,7 @@
         "symfony/symfony": "~3.0",
         "symfony/assetic-bundle": "~2.7",
         "symfony/monolog-bundle": "~3.0",
-        "pomm-project/pomm-bundle": "dev-master",
+        "pomm-project/pomm-bundle": "~2.4",
         "pomm-project/api-platform": "dev-master"
     },
     "require-dev": {
